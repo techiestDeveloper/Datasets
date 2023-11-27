@@ -1,0 +1,45 @@
+Q.1
+
+
+Fibonacci <- numeric(10)
+Fibonacci[1] <- Fibonacci[2] <- 1 
+for (i in 3:10) Fibonacci[i] <- Fibonacci[i - 2] + Fibonacci[i - 1]
+print("First 10 Fibonacci numbers:")
+print(Fibonacci)
+
+Q.2
+
+import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+
+# Load the dataset
+data = pd.read_csv('C:\\Users\\siddhii\\.spyder-py3\\CC GENERAL.csv')
+
+# Fill missing values with mean of the respective columns
+data.fillna(data.mean(), inplace=True)
+
+# Select relevant features for clustering
+X = data.iloc[:, 1:].values  # Exclude the 'CUST_ID' column for clustering
+
+# Standardize the data
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Apply K-means algorithm
+kmeans = KMeans(n_clusters=5, init='k-means++', random_state=42)
+kmeans.fit(X_scaled)
+
+# Add cluster labels to the original dataset
+data['Cluster'] = kmeans.labels_
+
+# Print the count of customers in each cluster
+print(data['Cluster'].value_counts())
+
+# Visualization (considering only 2 dimensions for plotting)
+plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=kmeans.labels_, cmap='viridis', marker='.')
+plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s=300, c='red', label='Centroids')
+plt.title('K-means Clustering')
+plt.legend()
+plt.show()

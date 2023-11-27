@@ -1,0 +1,65 @@
+Q.1
+
+
+# Function to generate the first 'n' Fibonacci numbers
+generate_fibonacci <- function(n) {
+  if (n <= 0) {
+    return(NULL)
+  } else if (n == 1) {
+    return(c(0))
+  } else if (n == 2) {
+    return(c(0, 1))
+  } else {
+    fibonacci <- numeric(n)
+    fibonacci[1] <- 0
+    fibonacci[2] <- 1
+    for (i in 3:n) {
+      fibonacci[i] <- fibonacci[i - 1] + fibonacci[i - 2]
+    }
+    return(fibonacci)
+  }
+}
+
+# Get the first 20 Fibonacci numbers
+first_20_fibonacci <- generate_fibonacci(20)
+
+# Print the first 20 Fibonacci numbers
+cat("The first 20 Fibonacci numbers are:", first_20_fibonacci, "\n")
+
+
+
+Q.2
+
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# Create the Stock_Market dictionary
+Stock_Market = {
+    'Year': [2017]*12 + [2016]*12,
+    'Month': list(range(12, 0, -1))*2,
+    'Interest_Rate': [2.75,2.5,2.5,2.5,2.5,2.5,2.5,2.25,2.25,2.25,2,2,2,1.75,1.75,1.75,1.75,1.75,1.75,1.75,1.75,1.75,1.75,1.75],
+    'Unemployment_Rate': [5.3,5.3,5.3,5.3,5.4,5.6,5.5,5.5,5.5,5.6,5.7,5.9,6,5.9,5.8,6.1,6.2,6.1,6.1,6.1,5.9,6.2,6.2,6.1],
+    'Stock_Index_Price': [1464,1394,1357,1293,1256,1254,1234,1195,1159,1167,1130,1075,1047,965,943,958,971,949,884,866,876,822,704,719]
+}
+
+# Create a DataFrame from the Stock_Market dictionary
+df = pd.DataFrame(Stock_Market)
+
+# Selecting features and target variable
+X = df[['Interest_Rate', 'Unemployment_Rate']]
+y = df['Stock_Index_Price']
+
+# Create and fit the regression model
+model = LinearRegression()
+model.fit(X, y)
+
+# Plotting Stock_Index_Price vs. Interest_Rate
+plt.scatter(df['Interest_Rate'], df['Stock_Index_Price'], color='blue')
+plt.plot(df['Interest_Rate'], model.predict(X), color='red', linewidth=2)
+plt.title('Stock Market Price vs Interest Rate')
+plt.xlabel('Interest Rate')
+plt.ylabel('Stock Market Price')
+plt.show()

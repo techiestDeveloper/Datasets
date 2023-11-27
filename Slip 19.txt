@@ -1,0 +1,57 @@
+Q.1
+
+
+# Creating a data frame with details of 5 students
+students_df <- data.frame(
+  Rollno = c(101, 102, 103, 104, 105),
+  Studname = c("Alice", "Bob", "Charlie", "David", "Eva"),
+  Address = c("Address1", "Address2", "Address3", "Address4", "Address5"),
+  Marks = c(85, 76, 92, 81, 89)
+)
+
+# Displaying the details of the students
+print(students_df)
+
+
+Q.2
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+import matplotlib.pyplot as plt
+
+# Load the dataset
+data = pd.read_csv('C:\\Users\\siddhii\\.spyder-py3\\Cars.csv')
+
+# Display the first few rows of the dataset
+print(data.head())
+
+# Selecting features and target variable
+X = data[['Weight', 'Volume']]
+y = data['CO2']
+
+# Splitting the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Creating a Linear Regression model
+model = LinearRegression()
+
+# Training the model
+model.fit(X_train, y_train)
+
+# Making predictions
+y_pred = model.predict(X_test)
+
+# Model evaluation
+print('Coefficients:', model.coef_)
+print('Intercept:', model.intercept_)
+print('Mean Squared Error (MSE): %.2f' % mean_squared_error(y_test, y_pred))
+print('Coefficient of Determination (R^2): %.2f' % r2_score(y_test, y_pred))
+
+# Plotting predicted vs actual values
+plt.scatter(y_test, y_pred)
+plt.xlabel('Actual CO2 Emissions')
+plt.ylabel('Predicted CO2 Emissions')
+plt.title('Actual vs Predicted CO2 Emissions')
+plt.show()

@@ -1,0 +1,21 @@
+Q.1
+
+digits <- c(7,2,6,3,4,8)
+Frequency <- c(1,2,3,4,5,6)
+# Plot the chart.
+pie(digits, Frequency)
+
+Q.2
+
+import pandas as pd
+
+# Read the dataset
+file_path = "C:\\Users\\siddhii\\.spyder-py3\\StudentsPerformance.csv"  # Update with your file path
+data = pd.read_csv(file_path)
+
+# Display the shape of the dataset
+print("Shape of the dataset:", data.shape)
+
+# Display the top rows of the dataset with their columns
+print("\nTop rows of the dataset:")
+print(data.head())

@@ -1,0 +1,45 @@
+Q.1 
+
+# R Program to find the multiplicationtable (from 1 to 10)
+
+# take input from the user
+
+num = as.integer(readline(prompt = "Enter a number: "))
+
+# use for loop to iterate 10 times
+for(i in 1:10) {
+  print(paste(num,'x', i, '=', num*i))
+}
+
+Q.2
+
+# Step 1: Import necessary libraries
+#import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
+
+# Step 2: Generate a synthetic dataset
+data, true_labels = make_blobs(n_samples=300, centers=4, random_state=42)
+
+# Step 3: Visualize the synthetic dataset
+plt.scatter(data[:, 0], data[:, 1], s=30, cmap='viridis')
+plt.title("Synthetic Dataset")
+plt.show()
+
+# Step 4: Choose the number of clusters (k)
+k = 4
+
+# Step 5: Create and fit the KMeans model
+kmeans = KMeans(n_clusters=k, random_state=42)
+kmeans.fit(data)
+
+# Step 6: Get cluster centers and labels
+centroids = kmeans.cluster_centers_
+labels = kmeans.labels_
+
+# Step 7: Visualize the clusters and centroids
+plt.scatter(data[:, 0], data[:, 1], c=labels, s=30, cmap='viridis')
+plt.scatter(centroids[:, 0], centroids[:, 1], marker='X', s=200, linewidths=3, color='red')
+plt.title("K-means Clustering")
+plt.show()

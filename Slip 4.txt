@@ -1,0 +1,52 @@
+Q.1
+
+
+m1 = matrix(c(1, 2, 3, 4, 5, 6), nrow = 2)
+print("Matrix-1:")
+print(m1)
+m2 = matrix(c(0, 1, 2, 3, 0, 2), nrow = 2)
+print("Matrix-2:")
+print(m2)
+
+result = m1 + m2
+print("Result of addition")
+print(result)
+
+
+Q.2
+
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.preprocessing import LabelEncoder
+
+# Given data
+weather = ['Sunny','Sunny','Overcast','Rainy','Rainy','Rainy','Overcast','Sunny','Sunny','Rainy','Sunny','Overcast','Overcast','Rainy']
+temp = ['Hot','Hot','Hot','Mild','Cool','Cool','Cool','Mild','Cool','Mild','Mild','Mild','Hot','Mild']
+play = ['No','No','Yes','Yes','Yes','No','Yes','No','Yes','Yes','Yes','Yes','Yes','No']
+
+# Encode categorical variables
+le_weather = LabelEncoder()
+le_temp = LabelEncoder()
+le_play = LabelEncoder()
+
+weather_encoded = le_weather.fit_transform(weather)
+temp_encoded = le_temp.fit_transform(temp)
+play_encoded = le_play.fit_transform(play)
+
+# Combine the encoded features into a feature matrix
+X = list(zip(weather_encoded, temp_encoded))
+
+# Create and train the Naïve Bayes model
+model = MultinomialNB()
+model.fit(X, play_encoded)
+
+# New tuple to predict [0: Overcast, 2: Mild]
+new_data = [(le_weather.transform(['Overcast'])[0], le_temp.transform(['Mild'])[0])]
+
+# Predict using the model
+prediction = model.predict(new_data)
+
+# Decode the prediction
+predicted_class = le_play.inverse_transform(prediction)
+
+# Print the prediction
+print("Prediction: Whether to play sports or not -", predicted_class[0])

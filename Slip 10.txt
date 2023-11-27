@@ -1,0 +1,61 @@
+Q.1
+
+# Given vector
+vector <- c(10, 5, 8, 15, 3, 20)
+
+# Find maximum value
+max_value <- max(vector)
+
+# Find minimum value
+min_value <- min(vector)
+
+# Print the maximum and minimum values
+cat("Maximum value:", max_value, "\n")
+cat("Minimum value:", min_value, "\n")
+
+
+Q.2
+
+import pandas as pd
+from itertools import combinations
+
+# Read the Iris dataset
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
+names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']
+data = pd.read_csv(url, names=names)
+
+# For the sake of this example, we'll drop the 'class' column as Apriori works with itemsets
+data.drop('class', axis=1, inplace=True)
+
+# Convert numerical values to categorical (for the sake of this demonstration)
+for col in data.columns:
+    data[col] = pd.cut(data[col], bins=3, labels=['small', 'medium', 'large'])
+
+# Define a function to generate frequent itemsets
+def find_frequent_itemsets(data, min_support):
+    itemsets = {}
+    for column in data.columns:
+        itemsets[column] = data[column].unique()
+
+    all_frequent_itemsets = {}
+    for i in range(1, len(itemsets.keys()) + 1):
+        frequent_itemsets = {}
+        combinations_set = list(combinations(itemsets.keys(), i))
+        for comb in combinations_set:
+            comb_data = data[list(comb)]
+            support = (comb_data.apply(lambda x: all(x == comb), axis=1)).sum() / len(data)
+            if support >= min_support:
+                frequent_itemsets[comb] = support
+        all_frequent_itemsets.update(frequent_itemsets)
+    return all_frequent_itemsets
+
+# Apply Apriori algorithm
+min_support_threshold = 0.1
+frequent_itemsets = find_frequent_itemsets(data, min_support_threshold)
+
+# Display frequent itemsets
+print("Frequent Itemsets:")
+for itemset, support in frequent_itemsets.items():
+    print(f"{itemset} - Support: {support:.4f}")
+
+

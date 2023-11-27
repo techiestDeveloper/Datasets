@@ -1,0 +1,57 @@
+Q.1
+
+
+# Create a data frame with the given data
+data <- data.frame(
+  Year = c(2001, 2002, 2003),
+  Export = c(26, 32, 35),
+  Import = c(35, 40, 50)
+)
+
+# Plotting a bar plot
+barplot(
+  height = t(data[, -1]),  # Exclude 'Year' column and transpose for barplot
+  beside = TRUE,           # Place bars beside each other
+  names.arg = data$Year,  # Year on x-axis
+  col = c("blue", "red"),  # Colors for Export and Import bars
+  xlab = "Year",           # X-axis label
+  ylab = "Value",          # Y-axis label
+  main = "Export and Import Data"  # Title of the plot
+)
+legend("topright", legend = c("Export", "Import")
+
+
+Q.2
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report
+
+# Load the dataset
+data = pd.read_csv('C:\\Users\\siddhii\\.spyder-py3\\diabetes.csv')
+
+# Display the first few rows of the dataset
+print("First few rows of the dataset:")
+print(data.head())
+
+# Features and target variable
+X = data.drop('Outcome', axis=1)
+y = data['Outcome']
+
+# Splitting the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Build Decision Tree Classifier
+clf = DecisionTreeClassifier(random_state=42)
+clf.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = clf.predict(X_test)
+
+# Evaluate model
+print("\nAccuracy Score:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
+

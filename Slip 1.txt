@@ -1,0 +1,52 @@
+Q.1 
+
+# Create two vectors of integer type
+vector1 <- c(2, 4, 6, 8)
+vector2 <- c(1, 3, 5, 7)
+
+# Add two vectors
+add_result <- vector1 + vector2
+cat("Vector Addition Result: ", add_result, "\n")
+
+# Multiply two vectors
+multiply_result <- vector1 * vector2
+cat("Vector Multiplication Result: ", multiply_result, "\n")
+
+# Divide two vectors
+# Note: Make sure the divisor vector (vector2) does not contain zeros to avoid division by zero errors
+divide_result <- vector1 / vector2
+cat("Vector Division Result: ", divide_result, "\n")
+
+Q.2
+
+C:\\Users\\siddhii\\.spyder-py3\\student_scores.csv
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error,mean_squared_error,r2_score
+
+data=pd.read_csv('C:\\Users\\siddhii\\.spyder-py3\\student_marks.csv')
+x=data[['Physics']]
+y=data[['Chemistry']]
+
+model=LinearRegression()
+model.fit(x,y)
+
+plt.scatter(x,y)
+plt.plot(x,model.predict(x))
+
+
+predictions=model.predict(x)
+
+mae=mean_absolute_error(y,predictions)
+mse=mean_squared_error(y, predictions)
+rmse = np.sqrt(mse)
+
+print("mean absolute error",mae);
+print("mean squared error",mse);
+
+print("root mean sq error",rmse);
+
+
